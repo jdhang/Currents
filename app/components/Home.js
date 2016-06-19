@@ -49,7 +49,7 @@ export default class Home extends Component {
   }
 
   _handlePress (category) {
-    LayoutAnimation.easeInEaseOut()
+    LayoutAnimation.spring()
     this.setState({
       singleView: !this.state.singleView,
       category: category,

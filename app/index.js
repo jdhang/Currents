@@ -55,11 +55,11 @@ export default class App extends Component {
   }
 
   configureScene (route, routeStack) {
-    switch (route.type) {
+    switch (route.id) {
       case 'Modal':
-        return Navigator.SceneConfigs.FloatFromBottom
+        return Navigator.SceneConfigs.HorizontalSwipeJump
       default:
-        return Navigator.SceneConfigs.PushFromRight
+        return Navigator.SceneConfigs.HorizontalSwipeJump
     }
   }
 
@@ -75,8 +75,8 @@ export default class App extends Component {
         configureScene={ this.configureScene }
         style={{ flex: 1 }}
         initialRoute={{
-          id: 'Home',
-          component: Home
+          id: 'PageOne',
+          component: PageOne
         }}
         renderScene={ this.renderScene }
       />
