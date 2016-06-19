@@ -55,6 +55,8 @@ export default class App extends Component {
     switch (route.type) {
       case 'Modal':
         return Navigator.SceneConfigs.FloatFromBottom
+      case 'Down':
+        return Navigator.SceneConfigs.VerticalDownSwipeJump
       default:
         return Navigator.SceneConfigs.PushFromRight
     }

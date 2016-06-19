@@ -24,7 +24,7 @@ export default class EntityMap extends Component {
         title: this.props.title,
         entity: entity,
         index: this._getIndexOf(entity)
-      }
+      },
     })
   }
 

@@ -26,7 +26,7 @@ export default class ArticleList extends Component {
       }
     })
 
-    let subHeaderText = this.props.index < 12
+    let subHeaderText = this.props.index < 11
     ? <Text style={styles.subHeaderText}>{this.props.entity.name}</Text>
     : <Text style={styles.subHeaderTextLight}>{this.props.entity.name}</Text>
 
