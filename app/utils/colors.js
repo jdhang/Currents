@@ -3,6 +3,7 @@
 
 const colors = {
   'Current Events': [
+    '#131D0C',
     '#1F2D11',
     '#2B3D16',
     '#374D1B',
