@@ -1,28 +1,27 @@
 /* @flow */
 'use strict'
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   StyleSheet,
   Text,
-  View,
   Navigator,
   TouchableHighlight,
   StatusBar,
-  Platform,
-} from 'react-native';
+  Platform
+} from 'react-native'
 
 import Home from './components/Home'
-import PageOne from './components/PageOne'
 
 const NavigationBarRouteMapper = {
   LeftButton: (route, navigator, index, navState) => {
     if (index > 0) {
       return (
-        <TouchableHighlight onPress={() => {
-              if (index > 0) {
-                navigator.pop();
-              }
+        <TouchableHighlight
+          onPress={() => {
+            if (index > 0) {
+              navigator.pop()
+            }
           }}>
           <Text style={styles.navBarText}>Back</Text>
         </TouchableHighlight>
@@ -40,17 +39,15 @@ const NavigationBarRouteMapper = {
     if (index > 0) {
       return <Text style={styles.navBarText}>Forward</Text>
     }
-  },
+  }
 }
 
 export default class App extends Component {
 
   renderScene (route, navigator) {
-    switch (route.id) {
-      case 'Home':
-        return <Home navigator={navigator} route={route} {...this.props} title={'TBDNews'} />
-      case 'PageOne':
-        return <PageOne navigator={navigator} route={route} {...this.props} title={'TBDNews'} />
+    if (route.component) {
+      let Component = route.component
+      return <Component navigator={navigator} route={route} {...route.passProps} />
     }
   }
 
@@ -69,18 +66,17 @@ export default class App extends Component {
     }
   }
 
-  render() {
+  render () {
     return (
       <Navigator
-        configureScene={ this.configureScene }
+        configureScene={this.configureScene}
         style={{ flex: 1 }}
         initialRoute={{
-          id: 'Home',
           component: Home
         }}
-        renderScene={ this.renderScene }
+        renderScene={this.renderScene}
       />
-    );
+    )
   }
 
         // navigationBar={
@@ -93,15 +89,15 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
   navBar: {
-    backgroundColor: '#2c3e50',
+    backgroundColor: '#2c3e50'
   },
   navBarText: {
     fontSize: 16,
     marginVertical: 10,
-    color: '#FFF',
+    color: '#FFF'
   },
   navBarTitleText: {
     fontWeight: '500',
-    marginVertical: 9,
-  },
+    marginVertical: 9
+  }
 })
