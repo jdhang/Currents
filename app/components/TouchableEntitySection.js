@@ -29,6 +29,7 @@ export default class TouchableEntitySection extends Component {
           style={this.props.style}
           onPress={this._handlePress.bind(this, el)}
           text={el.name}
+          shortenText={this.props.shortenText}
         />
       )
     })
@@ -63,7 +64,8 @@ TouchableEntitySection.propTypes = {
   data: React.PropTypes.array.isRequired,
   onPress: React.PropTypes.func,
   style: React.PropTypes.array,
-  type: React.PropTypes.string
+  type: React.PropTypes.string,
+  shortenText: React.PropTypes.number
 }
 
 const styles = StyleSheet.create({

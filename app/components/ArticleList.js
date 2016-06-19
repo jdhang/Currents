@@ -82,8 +82,8 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   subHeader: {
-    paddingTop: 8,
-    paddingBottom: 8,
+    paddingTop: 10,
+    paddingBottom: 10,
     borderTopWidth: 2,
     borderColor: '#E0E0E0'
   },
