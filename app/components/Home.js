@@ -8,25 +8,13 @@ import {
   View,
   LayoutAnimation
 } from 'react-native'
+import mainColors from '../utils/colors'
 import Navbar from './shared/Navbar'
 import Loading from './shared/Loading'
 import TouchableCategorySection from './TouchableCategorySection'
 import EntityMap from './EntityMap'
 
 const API_CALL = 'http://news-explorer.mybluemix.net/api/overview'
-const CATEGORIES = {
-  'Current Events': '#739D34',
-  'Sports': '#983351',
-  'Finance': '#29526D',
-  'Art and Entertainment': '#226666',
-  // 'Science',
-  // 'Business and Industrial',
-  // 'Health and Fitness',
-  // 'Education',
-  // 'Law, Government and Politics',
-  // 'Relogion and Spirituality',
-  // 'Technology and Computing'
-}
 
 export default class Home extends Component {
   constructor (props) {
@@ -55,7 +43,7 @@ export default class Home extends Component {
       category: category,
       bg: StyleSheet.create({
         color: {
-          backgroundColor: CATEGORIES[category]
+          backgroundColor: mainColors[category]
         }
       })
     })
@@ -63,7 +51,7 @@ export default class Home extends Component {
 
   _extractData (data) {
     let obj = {}
-    Object.keys(CATEGORIES).forEach(category => {
+    Object.keys(mainColors).forEach(category => {
       obj[category] = data[category]
     })
     return obj
@@ -86,12 +74,12 @@ export default class Home extends Component {
   }
 
   renderCategorySections () {
-    return Object.keys(CATEGORIES).map((category, i) => {
+    return Object.keys(mainColors).map((category, i) => {
       return (
         <TouchableCategorySection
           key={i}
           sectionName={category}
-          bgColor={CATEGORIES[category]}
+          bgColor={mainColors[category]}
           onPress={this._handlePress.bind(this)}
         />
       )
@@ -112,8 +100,13 @@ export default class Home extends Component {
             onLeftPress={this._handlePress.bind(this)}
             title={'Currents'}
           />
-          <Text style={[styles.header, this.state.bg.color]}>{this.state.category}</Text>
-          <EntityMap data={this.state.data[this.state.category]} />
+          <View style={[styles.header, this.state.bg.color]}>
+            <Text style={styles.headerText}>{this.state.category}</Text>
+          </View>
+          <EntityMap
+            data={this.state.data[this.state.category]}
+            title={this.state.category}
+          />
         </View>
       )
       : (
@@ -136,10 +129,12 @@ const styles = StyleSheet.create({
   },
   header: {
     paddingTop: 8,
-    paddingBottom: 8,
-    fontWeight: '500',
-    fontSize: 20,
+    paddingBottom: 8
+  },
+  headerText: {
     color: '#FAFAFA',
+    fontSize: 20,
+    fontWeight: '500',
     textAlign: 'center'
   }
 })

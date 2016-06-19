@@ -8,7 +8,7 @@ import {
   View,
   TouchableHighlight
 } from 'react-native'
-
+import { colors } from '../utils/colors'
 import LargeColumn from './LargeColumn'
 import MediumColumn from './MediumColumn'
 import SmallColumn from './SmallColumn'
@@ -30,12 +30,18 @@ export default class EntityMap extends Component {
       <View
         style={[styles.section, bg.color]}>
         <View style={styles.grid}>
-          <LargeColumn data={this.props.data.slice(0, 1)} />
-          <MediumColumn data={this.props.data.slice(1, 3)} />
-          <SmallColumn data={this.props.data.slice(3, 16)} />
-          <View style={styles.backdropView}>
-            <Text style={styles.title}>{this.props.title}</Text>
-          </View>
+          <LargeColumn
+            data={this.props.data.slice(0, 1)}
+            colors={colors[this.props.title].slice(0, 1)}
+          />
+          <MediumColumn
+            data={this.props.data.slice(1, 3)}
+            colors={colors[this.props.title].slice(1, 3)}
+          />
+          <SmallColumn
+            data={this.props.data.slice(3, 16)}
+            colors={colors[this.props.title].slice(3, 16)}
+          />
         </View>
       </View>
     )
@@ -45,7 +51,7 @@ export default class EntityMap extends Component {
 EntityMap.propTypes = {
   data: React.PropTypes.array.isRequired,
   bgColor: React.PropTypes.string,
-  title: React.PropTypes.string,
+  title: React.PropTypes.string.isRequired,
   onPress: React.PropTypes.func
 }
 

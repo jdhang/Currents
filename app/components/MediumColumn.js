@@ -7,17 +7,20 @@ import {
   Text,
 } from 'react-native'
 import Dimensions from 'Dimensions'
+import utils from '../utils'
 
 const HEIGHT = Dimensions.get('window').height
 const WIDTH = Dimensions.get('window').width
 
 export default class MediumColumn extends Component {
   renderNames () {
+    const colors = utils.generateColorStyleSheets(this.props.colors)
+
     return (
       this.props.data.map((el, i) => {
         let elName = el.name.split(' ').join('\n')
         return (
-          <View style={styles.mid} key={i}>
+          <View style={[styles.mid, colors[i].bg]} key={i}>
             <Text style={styles.midText}>{elName}</Text>
           </View>
         )
@@ -43,13 +46,12 @@ const styles = StyleSheet.create({
   mid: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
-    borderWidth: 1
+    justifyContent: 'center'
   },
   midText: {
+    color: '#FFF',
     fontSize: 16,
     fontWeight: '600',
     textAlign: 'center'
-  },
-
+  }
 })
