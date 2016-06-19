@@ -4,8 +4,7 @@
 import React, { Component } from 'react'
 import {
   StyleSheet,
-  View,
-  LayoutAnimation
+  View
 } from 'react-native'
 import mainColors from '../utils/colors'
 import Navbar from './shared/Navbar'

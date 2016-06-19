@@ -12,15 +12,30 @@ import Row from './shared/Row'
 import Column from './shared/Column'
 import TouchableEntitySection from './TouchableEntitySection'
 import Navbar from './shared/Navbar'
+import ArticleList from './ArticleList'
 
 export default class EntityMap extends Component {
 
   _handlePress (entity) {
     console.log(entity)
+    this.props.navigator.push({
+      component: ArticleList,
+      passProps: {
+        title: this.props.title,
+        entity: entity,
+        index: this._getIndexOf(entity)
+      }
+    })
   }
 
   _handleBackPress () {
     this.props.navigator.pop()
+  }
+
+  _getIndexOf (entity) {
+    return parseInt(this.props.data.map((el, i) => {
+      if (el.name === entity.name) return i
+    }).filter(el => el !== undefined).join(''))
   }
 
   renderHeader () {
@@ -89,7 +104,7 @@ export default class EntityMap extends Component {
             <TouchableEntitySection
               data={this.props.data.slice(10, 13)}
               colors={colors[this.props.title].slice(10, 13)}
-              style={[styles.text, styles.xsmall]}
+              style={[styles.text, styles.tiny]}
               onPress={this._handlePress.bind(this)}
               type={'rows'}
             />
@@ -98,7 +113,7 @@ export default class EntityMap extends Component {
             <TouchableEntitySection
               data={this.props.data.slice(13, 15)}
               colors={colors[this.props.title].slice(13, 15)}
-              style={[styles.text, styles.tiny]}
+              style={[styles.text, styles.xtiny]}
               onPress={this._handlePress.bind(this)}
               type={'columns'}
             />
@@ -163,28 +178,33 @@ const styles = StyleSheet.create({
   text: {
     flex: 1,
     color: '#FFF',
-    textAlign: 'center'
+    textAlign: 'center',
+    padding: 10
   },
   large: {
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: 'bold'
   },
   medium: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: '600'
   },
   small: {
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: '600'
   },
   xsmall: {
-    fontSize: 12,
-    fontWeight: '500',
-    padding: 8
+    fontSize: 14,
+    fontWeight: '600'
   },
   tiny: {
-    fontSize: 10,
-    padding: 5
+    fontSize: 12,
+    fontWeight: '500'
+  },
+  xtiny: {
+    fontSize: 11,
+    fontWeight: '400',
+    padding: 0
   }
 })
 
