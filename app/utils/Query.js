@@ -9,8 +9,9 @@ import {
   ListView,
 } from 'react-native'
 
-const API_KEY = 'fcfa1777e2179b5527ecdce188ab8d391f913595';  //8a5c3df44b3029cb4b51e01ad6bc037d14a72667
+const API_KEY = '8a5c3df44b3029cb4b51e01ad6bc037d14a72667';   //fcfa1777e2179b5527ecdce188ab8d391f913595
 const WATSON_URL = 'https://access.alchemyapi.com/calls/data/GetNews?';
+const cache = {}
 
 var fetched = [
             {
@@ -206,7 +207,7 @@ var fetched = [
 
 function generate(entity) {
   var query = [WATSON_URL+'apikey='+API_KEY+'&outputMode=json&dedup=1&rank=high'];
-  setTime('2d');
+  setTime('5d');
   setEntity(entity);
   setCount('25');
   setReturn('enrichedTitle.docSentiment', 'url', 'title', 'text');
@@ -241,7 +242,24 @@ function fetch() {
 }
 
 
+function fetchCache(entity) {
+    if (cache[entity.name]) {
+        console.log('fetched from cache', cache[entity.name]);
+        return cache[entity.name];
+    }
+    else return false;
+}
+
+function saveToCache(entity, obj) {
+    cache[entity.name] = obj;
+    console.log('saved to cache', obj);
+    console.log(cache);
+    return obj;
+}
+
 module.exports = {
   generate: generate,
-  fetch: fetch
+  fetch: fetch,
+  saveToCache: saveToCache,
+  fetchCache: fetchCache
 }

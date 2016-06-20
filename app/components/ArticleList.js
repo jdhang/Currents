@@ -71,21 +71,33 @@ export default class ArticleList extends Component {
   }
 
   componentDidMount() {
-    this.fakefetchData()
+    this.fetchData()
   }
 
-  // fetchData () {
-  //   console.log('url is', Query.generate(this.props.entity))
-  //   fetch(Query.generate(this.props.entity))
-  //   .then(res => res.json())
-  //   .then(resData => {
-  //     this.setState({
-  //       dataSource: this.state.dataSource.cloneWithRows(resData.result.docs),
-  //       isLoading: false
-  //     })
-  //   })
-  //   .done()
-  // }
+  fetchData () {
+    if (Query.fetchCache(this.props.entity)) {
+      console.log('in cache', Query.fetchCache(this.props.entity));
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(Query.fetchCache(this.props.entity)),
+        isLoading: false
+      });
+      return;
+    } else {
+      fetch(Query.generate(this.props.entity))
+      .then(res => res.json())
+      .then(resData => {
+        console.log(resData);
+        Query.saveToCache(this.props.entity, resData.result.docs);
+        try {this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(resData.result.docs),
+          isLoading: false
+        })
+        } catch(e) {
+          console.error(e)
+      }})
+      .done() 
+    }
+  }
 
   fakefetchData() {
     this.setState({
