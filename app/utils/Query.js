@@ -244,7 +244,7 @@ function fetch() {
 
 function fetchCache(entity) {
     if (cache[entity.name]) {
-        console.log('fetched from cache', cache[entity.name]);
+        console.log('fetched from cache');
         return cache[entity.name];
     }
     else return false;
@@ -252,8 +252,7 @@ function fetchCache(entity) {
 
 function saveToCache(entity, obj) {
     cache[entity.name] = obj;
-    console.log('saved to cache', obj);
-    console.log(cache);
+    console.log('saved to cache');
     return obj;
 }
 

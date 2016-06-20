@@ -78,7 +78,7 @@ export default class ArticleList extends Component {
 
   fetchData () {
     if (Query.fetchCache(this.props.entity)) {
-      console.log('in cache', Query.fetchCache(this.props.entity));
+      console.log('in cache');
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(Query.fetchCache(this.props.entity)),
         isLoading: false
