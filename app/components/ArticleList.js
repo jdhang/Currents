@@ -5,7 +5,8 @@ import React, { Component } from 'react'
 import {
   StyleSheet,
   View,
-  Text
+  Text,
+  TouchableHighlight
 } from 'react-native'
 import { mainColors, colors } from '../utils/colors'
 import Navbar from './shared/Navbar'
@@ -32,9 +33,11 @@ export default class ArticleList extends Component {
 
     return (
       <View>
-        <View style={[styles.header, bg.color]}>
+        <TouchableHighlight
+          style={[styles.header, bg.color]}
+          onPress={this._handleBackPress.bind(this)}>
           <Text style={styles.headerText}>{this.props.title}</Text>
-        </View>
+        </TouchableHighlight>
         <View style={[styles.subHeader, bg.entityColor]}>
           {subHeaderText}
         </View>
@@ -79,8 +82,8 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   subHeader: {
-    paddingTop: 8,
-    paddingBottom: 8,
+    paddingTop: 10,
+    paddingBottom: 10,
     borderTopWidth: 2,
     borderColor: '#E0E0E0'
   },

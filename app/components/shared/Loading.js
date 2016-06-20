@@ -17,7 +17,6 @@ export default class Loading extends Component {
         <Navbar title={this.props.navBarTitle} />
         <View style={styles.loading}>
           <ActivityIndicatorIOS size='large' />
-          <Text style={styles.loadingText}>Loading...</Text>
         </View>
       </View>
     )
