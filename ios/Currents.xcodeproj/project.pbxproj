@@ -622,7 +622,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = currents;
+				PRODUCT_BUNDLE_IDENTIFIER = "Currents-stackathon";
 				PRODUCT_NAME = Currents;
 				PROVISIONING_PROFILE = "";
 			};
@@ -645,7 +645,11 @@
 					"-ObjC",
 					"-lc++",
 				);
+<<<<<<< HEAD
+				PRODUCT_BUNDLE_IDENTIFIER = "Currents-stackathon";
+=======
 				PRODUCT_BUNDLE_IDENTIFIER = currents;
+>>>>>>> e6e859bf01b717efab3d3a484b08d96553e13f9c
 				PRODUCT_NAME = Currents;
 				PROVISIONING_PROFILE = "";
 			};

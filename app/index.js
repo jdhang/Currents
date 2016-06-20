@@ -52,13 +52,13 @@ export default class App extends Component {
   }
 
   configureScene (route, routeStack) {
-    switch (route.type) {
+    switch (route.id) {
       case 'Modal':
         return Navigator.SceneConfigs.FloatFromBottom
       case 'Down':
         return Navigator.SceneConfigs.VerticalDownSwipeJump
       default:
-        return Navigator.SceneConfigs.PushFromRight
+        return Navigator.SceneConfigs.HorizontalSwipeJump
     }
   }
 

@@ -9,8 +9,11 @@ import {
   ListView,
 } from 'react-native'
 
-const API_CALL = 'http://news-explorer.mybluemix.net/api/overview'
 const CATEGORY = 'Current Events'
+const Query = require('./Query.js')
+var ArticleView = require('./ArticleView');
+
+const fetched = Query.fetch();
 
 export default class PageOne extends Component {
   constructor (props) {
@@ -21,19 +24,18 @@ export default class PageOne extends Component {
       }),
       isLoading: true
     }
-
   }
 
   fetchData () {
-    fetch(API_CALL)
-    .then(res => res.json())
-    .then(resData => {
+    // fetch(ENTITY)
+    // .then(res => res.json())
+    // .then(resData => {
       this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(resData[CATEGORY]),
+        dataSource: this.state.dataSource.cloneWithRows(fetched),
         isLoading: false
       })
-    })
-    .done()
+    // })
+    // .done()
   }
 
   componentDidMount () {
@@ -47,9 +49,8 @@ export default class PageOne extends Component {
 
     return (
       <ListView
-        initialListSize={5}
         dataSource={this.state.dataSource}
-        renderRow={this.renderNews}
+        renderRow={this.renderNews.bind(this)}
         contentContainerStyle={styles.container}
       />
     )
@@ -64,12 +65,26 @@ export default class PageOne extends Component {
       </View>
     )
   }
+  rowPressed(article) {
+    console.log(article.url);
+    this.props.navigator.push({
+      title: 'Article',
+      component: ArticleView,
+      passProps: {article: article}
+    })
+  }
 
-  renderNews (entity) {
+  renderNews (article) {
     return (
+      <TouchableHighlight onPress={() => this.rowPressed(article.source.enriched.url)}>
+      <View>
       <View style={styles.listItem}>
-        <Text style={styles.listText}>{entity.name}</Text>
+        <Text style={styles.title}>{article.source.enriched.url.title}</Text>
+        <Text style={styles.score}>{article.source.enriched.url.enrichedTitle.docSentiment.score}</Text>
       </View>
+      <View style={styles.separator}/>
+      </View>
+      </TouchableHighlight>
     )
   }
 }
@@ -84,20 +99,21 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#8e44ad',
   },
-  listText: {
+  title: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#000'
   },
   back: {
     color: '#FFF',
   },
-  title: {
-    color: '#FFF',
-    fontSize: 28,
-    fontWeight: 'bold',
+  summary: {
+    fontSize: 14,
+    color: '#656565'
   },
-  subtitle: {
-    color: '#FFF',
-    fontSize: 20,
-  }
+   separator: {
+    height: 1,
+    backgroundColor: '#dddddd'
+  },
 })
