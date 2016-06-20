@@ -80,7 +80,7 @@ export default class EntityMap extends Component {
 
   renderBotRow () {
     return (
-      <Row size={2}>
+      <Row size={3}>
         <Column>
           <TouchableEntitySection
             data={this.props.data.slice(3, 6)}
@@ -88,6 +88,7 @@ export default class EntityMap extends Component {
             style={[styles.text, styles.small]}
             onPress={this._handlePress.bind(this)}
             type={'rows'}
+            shortenText={25}
           />
         </Column>
         <Column>
@@ -97,6 +98,7 @@ export default class EntityMap extends Component {
             style={[styles.text, styles.xsmall]}
             onPress={this._handlePress.bind(this)}
             type={'rows'}
+            shortenText={25}
           />
         </Column>
         <Column>
@@ -107,6 +109,7 @@ export default class EntityMap extends Component {
               style={[styles.text, styles.tiny]}
               onPress={this._handlePress.bind(this)}
               type={'rows'}
+              shortenText={25}
             />
           </Row>
           <Row>
@@ -116,6 +119,7 @@ export default class EntityMap extends Component {
               style={[styles.text, styles.xtiny]}
               onPress={this._handlePress.bind(this)}
               type={'columns'}
+              shortenText={14}
             />
           </Row>
         </Column>
@@ -204,7 +208,7 @@ const styles = StyleSheet.create({
   xtiny: {
     fontSize: 11,
     fontWeight: '400',
-    padding: 0
+    padding: 3
   }
 })
 
