@@ -5,15 +5,43 @@ import React, { Component } from 'react'
 import {
   StyleSheet,
   View,
-  Text
+  Text,
+  ListView,
+  ActivityIndicatorIOS,
+  TouchableHighlight
 } from 'react-native'
 import { mainColors, colors } from '../utils/colors'
 import Navbar from './shared/Navbar'
+import ArticleView from './ArticleView'
+
+
+var Query = require('../utils/Query')
 
 export default class ArticleList extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (row1, row2) =>  row1 !== row2,
+      }),
+      isLoading: true
+    }
+  }
 
   _handleBackPress () {
     this.props.navigator.pop()
+  }
+
+  _handleRowPress (article) {
+    this.props.navigator.push({
+      component: ArticleView,
+      passProps: {
+        title: this.props.title,
+        entity: this.props.entity,
+        index: this.props.index,
+        article: article.source.enriched.url
+      },
+    })
   }
 
   renderHeader () {
@@ -42,6 +70,62 @@ export default class ArticleList extends Component {
     )
   }
 
+  componentDidMount() {
+    this.fakefetchData()
+  }
+
+  // fetchData () {
+  //   console.log('url is', Query.generate(this.props.entity))
+  //   fetch(Query.generate(this.props.entity))
+  //   .then(res => res.json())
+  //   .then(resData => {
+  //     this.setState({
+  //       dataSource: this.state.dataSource.cloneWithRows(resData.result.docs),
+  //       isLoading: false
+  //     })
+  //   })
+  //   .done()
+  // }
+
+  fakefetchData() {
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(Query.fetch()),
+      isLoading: false
+    })
+  }
+
+  renderList() {
+    if (this.state.isLoading) {
+      return (<ActivityIndicatorIOS size='large'/>)
+    }
+
+    return (
+      <ListView
+        initialListSize={5}
+        dataSource={this.state.dataSource}
+        renderRow={this.renderNews.bind(this)}
+        contentContainerStyle={styles.container}
+
+      />
+    )
+  }
+
+  renderNews(article) {
+    return (
+      <View style={styles.row}>
+        <TouchableHighlight onPress={this._handleRowPress.bind(this, article)}>
+          <View>
+            <View style={styles.listItem}>
+              <Text style={styles.title}>{article.source.enriched.url.title}</Text>
+              <Text style={styles.summary}>{article.source.enriched.url.text.trim().replace(/\s\s/g, '')}</Text>
+            </View>
+          </View>
+        </TouchableHighlight>
+        <View style={styles.separator}/>
+      </View>
+    )
+  }
+
   render () {
     return (
       <View style={styles.container}>
@@ -51,6 +135,9 @@ export default class ArticleList extends Component {
           title={'Currents'}
         />
         {this.renderHeader()}
+        <View style={styles.center}>
+          {this.renderList()}
+        </View>
       </View>
     )
   }
@@ -59,7 +146,8 @@ export default class ArticleList extends Component {
 ArticleList.propTypes = {
   title: React.PropTypes.string.isRequired,
   entity: React.PropTypes.object.isRequired,
-  index: React.PropTypes.number.isRequired
+  index: React.PropTypes.number.isRequired,
+  navigator: React.PropTypes.object
 }
 
 const styles = StyleSheet.create({
@@ -95,5 +183,37 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '500',
     textAlign: 'center'
+  },
+  listItem: {
+    flex: 1,
+    overflow: 'hidden',
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'left',
+    color: '#000'
+  },
+  summary: {
+    fontSize: 14,
+    color: '#656565',
+    textAlign: 'left'
+  },
+   separator: {
+    height: 1,
+    backgroundColor: '#dddddd'
+  },
+  center: {
+    flex: 1,
+    flexDirection: 'column',
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    shadowOpacity: 0.6,
+    shadowOffset: {height: 1.5, width: 0}
+  },
+  row: {
+    flex: 1,
+    overflow: 'hidden',
+    padding: 10
   }
 })

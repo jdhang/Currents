@@ -17,13 +17,13 @@ import ArticleList from './ArticleList'
 export default class EntityMap extends Component {
 
   _handlePress (entity) {
-    console.log(entity)
     this.props.navigator.push({
       component: ArticleList,
       passProps: {
         title: this.props.title,
         entity: entity,
-        index: this._getIndexOf(entity)
+        index: this._getIndexOf(entity),
+        navigator: this.props.navigator,
       },
     })
   }
