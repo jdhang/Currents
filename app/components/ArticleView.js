@@ -64,7 +64,7 @@ export default class ArticleView extends Component {
           onLeftPress={this._handleBackPress.bind(this)}
           title={'Currents'}
         />
-        {this.renderHeader()}
+        
         <WebView
           automaticallyAdjustContentInsets={false}
           source={{uri: this.props.article.url}}

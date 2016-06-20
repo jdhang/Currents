@@ -121,7 +121,6 @@ export default class ArticleList extends Component {
             </View>
           </View>
         </TouchableHighlight>
-        <View style={styles.separator}/>
       </View>
     )
   }
@@ -199,21 +198,17 @@ const styles = StyleSheet.create({
     color: '#656565',
     textAlign: 'left'
   },
-   separator: {
-    height: 1,
-    backgroundColor: '#dddddd'
-  },
   center: {
     flex: 1,
     flexDirection: 'column',
     alignSelf: 'stretch',
     justifyContent: 'center',
-    shadowOpacity: 0.6,
-    shadowOffset: {height: 1.5, width: 0}
   },
   row: {
     flex: 1,
     overflow: 'hidden',
-    padding: 10
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eeeeee'
   }
 })
