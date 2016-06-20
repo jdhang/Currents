@@ -14,7 +14,6 @@ import { mainColors, colors } from '../utils/colors'
 import Navbar from './shared/Navbar'
 import ArticleView from './ArticleView'
 
-
 var Query = require('../utils/Query')
 
 export default class ArticleList extends Component {
@@ -118,8 +117,7 @@ export default class ArticleList extends Component {
         initialListSize={5}
         dataSource={this.state.dataSource}
         renderRow={this.renderNews.bind(this)}
-        contentContainerStyle={styles.container}
-
+        style={styles.listView}
       />
     )
   }
@@ -164,6 +162,9 @@ ArticleList.propTypes = {
 }
 
 const styles = StyleSheet.create({
+  listView: {
+    backgroundColor: '#F5FCFF'
+  },
   container: {
     flex: 1,
     flexDirection: 'column',
@@ -219,7 +220,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   row: {
-    flex: 1,
+    height: 100,
     overflow: 'hidden',
     padding: 10,
     borderBottomWidth: 1,
